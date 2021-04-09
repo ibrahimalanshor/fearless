@@ -6,11 +6,21 @@
 
 			<main class="col home-content">
 				
-				<div class="card post create">
+				<div class="card post create" v-show="login">
 					<div class="card-body flex">
 						<img src="@/assets/user.jpg" class="user-img">
-						<div class="placeholder">Ask a questions</div>
+						<div class="placeholder" @click="ask">Ask a questions</div>
 					</div>
+				</div>
+
+				<div class="home-heading">
+					<h1 class="h6">
+						All Question
+					</h1>
+					<ul class="home-heading-sort">
+						<li><button class="link active">Top Question</button></li>
+						<li><button class="link">Latest Question</button></li>
+					</ul>
 				</div>
 
 				<div class="card post">
@@ -57,21 +67,60 @@
 
 			<home-widget />
 
+			<transition name="fade">
+				<div v-show="creating">
+					<home-create-post v-model="creating" />
+				</div>
+			</transition>
+
 		</div>
 	</section>
 </template>
 
 <script>
-	import { HomeSidebar, HomeWidget } from '@/components/home'
+	import { mapState } from 'vuex'
+	import { HomeSidebar, HomeWidget, HomeCreatePost } from '@/components/home'
 
 	export default {
 		components: {
-			HomeSidebar, HomeWidget
+			HomeSidebar, HomeWidget, HomeCreatePost
+		},
+		data() {
+			return {
+				creating: false
+			}
+		},
+		computed: {
+			...mapState('auth', [
+				'login'
+			])
+		},
+		methods: {
+			ask() {
+				if (this.login) {
+					this.creating = true
+				} else {
+					console.log('authed');
+				}
+			}
 		}
 	}
 </script>
 
 <style>
+	.home-heading {
+		@apply flex items-center justify-between mb-4;
+	}
+	.home-heading-sort {
+		@apply flex text-sm;
+	}
+	.home-heading-sort .link {
+		@apply text-gray-500 ml-3;
+	}
+	.home-heading-sort .link.active, .home-heading-sort .link:hover {
+		@apply text-gray-800;
+	}
+
 	.home-content .post {
 		@apply mb-4;
 	}
@@ -101,6 +150,14 @@
 	}
 	.home-content .post .social .social-icon {
 		@apply mr-1;
+	}
+
+	.fade-enter-active, .fade-leave-active {
+		transition: opacity 0.25s;
+	}
+
+	.fade-enter, .fade-leave-to {
+		opacity: 0;
 	}
 
 	@screen sm {
