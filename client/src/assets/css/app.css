@@ -13,12 +13,41 @@
 	.container {
 		@apply max-w-7xl mx-auto px-4;
 	}
+	.wrapper {
+		@apply py-10;
+	}
+
+	.row {
+		@apply -mx-2 flex flex-wrap;
+	}
+	.col {
+		@apply px-2 w-full;
+	}
+	.row.lg {
+		@apply -mx-4;
+	}
+	.row.lg .col {
+		@apply px-4;
+	}
 
 	.button {
 		@apply rounded py-2 px-4;
 	}
 	.button.black {
 		@apply bg-gray-800 text-white;
+	}
+
+	.card {
+		@apply bg-white border rounded;
+	}
+	.card-body, .card-head {
+		@apply p-4;
+	}
+	.card-head {
+		@apply border-b;
+	}
+	.card-title {
+		@apply font-bold;
 	}
 }
 
