@@ -39,6 +39,10 @@
 		@apply text-lg;
 	}
 
+	.hr {
+		@apply my-5 border-gray-100;
+	}
+
 	.row {
 		@apply -mx-2 flex flex-wrap;
 	}
@@ -50,6 +54,26 @@
 	}
 	.row.lg .col {
 		@apply px-4;
+	}
+
+	.form {
+		@apply mb-4;
+	}
+	.form .input {
+		@apply px-3 py-2 border rounded mt-2 w-full;
+	}
+
+	.custom-file-hidden {
+		@apply hidden;
+	}
+	.custom-file-input {
+		@apply flex border rounded mt-2 cursor-pointer;
+	}
+	.custom-file-browse {
+		@apply bg-gray-100 py-2 px-3 rounded-l;
+	}
+	.custom-file-placeholder {
+		@apply py-2 px-3 text-gray-400;
 	}
 
 	.button {
@@ -66,10 +90,23 @@
 		@apply p-4;
 	}
 	.card-head {
-		@apply border-b;
+		@apply border-b flex items-center justify-between;
 	}
 	.card-title {
-		@apply font-bold;
+		@apply font-bold text-gray-800;
+	}
+
+	.modal {
+		@apply fixed top-0 left-0 w-full h-screen flex items-center justify-center px-4;
+	}
+	.modal-overlay {
+		@apply bg-black opacity-50 absolute fixed top-0 left-0 w-full h-full;
+	}
+	.modal-content {
+		@apply relative;
+	}
+	.modal-card {
+		@apply border-0 shadow-lg;
 	}
 }
 
