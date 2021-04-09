@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	body {
+		@apply bg-gray-100 text-gray-700;
+		font-family: 'IBM Plex Sans', sans-serif;
+  }
+}
+
+@layer components {
+	.container {
+		@apply max-w-7xl mx-auto px-4;
+	}
+
+	.button {
+		@apply rounded py-2 px-4;
+	}
+	.button.black {
+		@apply bg-gray-800 text-white;
+	}
+}
+
+@screen xl {
+	.container {
+		@apply px-0;
+	}
+}
