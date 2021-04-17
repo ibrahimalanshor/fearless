@@ -2,7 +2,7 @@
 	<nav class="navbar">
 		<div class="container">
 			<div class="navbar-left">
-				<a href="" class="navbar-brand">Fearless</a>
+				<router-link class="navbar-brand" :to="{ name: 'Home' }">Fearless</router-link>
 				<button class="navbar-toggle">
 					<i class="fa fa-bars"></i>
 				</button>
@@ -17,11 +17,26 @@
 					<input type="text" class="navbar-search" placeholder="Search Question">
 				</form>
 				<div class="navbar-divider"></div>
-				<a href="" class="button black">Login</a>
+				<div v-if="login">
+					user
+				</div>
+				<router-link class="button black" :to="{ name: 'Login' }" v-else>Login</router-link>
 			</div>
 		</div>
 	</nav>
 </template>
+
+<script>
+	import { mapState } from 'vuex'
+
+	export default {
+		computed: {
+			...mapState('auth', [
+				'login'
+			])
+		}
+	}
+</script>
 
 <style>
 	.navbar {
