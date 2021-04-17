@@ -1,4 +1,5 @@
 const express = require('express')
+const routes = require('./routes')
 
 class App {
 
@@ -10,7 +11,9 @@ class App {
 	}
 
 	initRoute() {
-		this.app.get('/', (req, res) => res.send('Ok'))
+		for (let [name, router] of Object.entries(routes)) {
+			this.app.use(`/api/${name}`, router)
+		}
 	}
 
 	listen() {
