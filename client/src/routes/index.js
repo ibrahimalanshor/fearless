@@ -2,15 +2,22 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import { Home } from '@/pages'
-import { auth } from './guards'
+import { Login } from '@/pages/auth'
+import { auth, guest } from './guards'
 
 Vue.use(VueRouter)
 
 const routes = [
 	{
-		name: 'home',
+		name: 'Home',
 		path: '/',
 		component: Home
+	},
+	{
+		name: 'Login',
+		path: '/login',
+		component: Login,
+		meta: { guest: true }
 	}
 ]
 
@@ -20,5 +27,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach(auth)
+router.beforeEach(guest)
 
 export default router
