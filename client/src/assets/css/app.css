@@ -82,6 +82,9 @@
 	.button.black {
 		@apply bg-gray-800 text-white;
 	}
+	.button.gray {
+		@apply bg-gray-100;
+	}
 
 	.card {
 		@apply bg-white border rounded;
@@ -108,8 +111,20 @@
 	.modal-card {
 		@apply border-0 shadow-lg;
 	}
+
+	.auth-wrapper {
+		@apply my-16;
+	}
+	.auth-box {
+		@apply mx-auto;
+	}
 }
 
+@screen sm {
+	.auth-wrapper {
+		@apply my-32;
+	}
+}
 @screen xl {
 	.container {
 		@apply px-0;
