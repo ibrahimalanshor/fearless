@@ -7,7 +7,13 @@ class App {
 		this.port = 3000
 		this.app = express()
 
+		this.initConfig()
 		this.initRoute()
+	}
+
+	initConfig() {
+		this.app.use(express.urlencoded({ extended: true }))
+		this.app.use(express.json())
 	}
 
 	initRoute() {
