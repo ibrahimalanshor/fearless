@@ -5,19 +5,83 @@
 				<div class="card-head">
 					<h1 class="card-title h3">Login</h1>
 				</div>
-				<div class="card-body">
+				<form class="card-body" @submit.prevent="process">
 					<div class="form">
 						<label>Email</label>
-						<input type="email" class="input" placeholder="Email">
+						<input type="email" class="input" :class="{ 'error': errors.email.error }" placeholder="Email" v-model="email">
+
+						<small class="error" v-if="errors.email.error">
+							{{ errors.email.msg }}
+						</small>
 					</div>
 					<div class="form">
 						<label>Password</label>
-						<input type="password" class="input" placeholder="Password">
+						<input type="password" class="input" :class="{ 'error': errors.password.error }" placeholder="Password" v-model="password">
+
+						<small class="error" v-if="errors.password.error">
+							{{ errors.password.msg }}
+						</small>
 					</div>
-					<button class="button black mr-2">Login</button>
+					<button class="button black mr-2" :disabled="loading">Login</button>
 					<router-link class="button gray" :to="{ name: 'Register' }">Register</router-link>
-				</div>
+				</form>
 			</div>
 		</div>
 	</section>
 </template>
+
+<script>
+	import { mapActions } from 'vuex'
+
+	const errors = {
+		email: {},
+		password: {}
+	}
+
+	export default {
+		data() {
+			return {
+				email: '',
+				password: '',
+				loading: false,
+				errors: {...errors}
+			}
+		},
+		methods: {
+			...mapActions('auth', [
+				'login'
+			]),
+			async process() {
+				this.loading = true
+				this.errors = {...errors}
+
+				try {
+					await this.login({
+						email: this.email,
+						password: this.password
+					})
+
+					this.$router.push({ name: 'Home' })
+				} catch (err) {
+					if (err.response.status === 422) {
+						const errors = err.response.data.errors
+
+						errors.forEach(({ param, msg}) => {
+							this.errors[param] = {
+								error: true,
+								msg
+							}
+						})
+					} else {
+						this.errors.password = {
+							error: true,
+							msg: err.response.data
+						}
+					}
+				} finally {
+					this.loading = false
+				}
+			}
+		}
+	}
+</script>
