@@ -31,7 +31,7 @@
 </template>
 
 <script>
-	import { mapActions } from 'vuex'
+	import { mapActions, mapMutations } from 'vuex'
 
 	const errors = {
 		email: {},
@@ -51,6 +51,7 @@
 			...mapActions('auth', [
 				'login'
 			]),
+			...mapMutations(['flash']),
 			async process() {
 				this.loading = true
 				this.errors = {...errors}
@@ -61,6 +62,7 @@
 						password: this.password
 					})
 
+					this.flash('Login Success')
 					this.$router.push({ name: 'Home' })
 				} catch (err) {
 					if (err.response.status === 422) {

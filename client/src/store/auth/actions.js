@@ -5,5 +5,8 @@ export default {
 		const user = await axios.post('/auth/login', body)
 
 		commit('login', user)
+	},
+	async register(commit, body) {
+		await axios.post('/auth/register', body)
 	}
 }
