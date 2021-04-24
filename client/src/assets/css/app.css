@@ -59,8 +59,17 @@
 	.form {
 		@apply mb-4;
 	}
-	.form .input {
+	.form small.error {
+		@apply text-red-500 mt-2 block;
+	}
+	.input {
 		@apply px-3 py-2 border rounded mt-2 w-full;
+	}
+	.input:focus {
+		@apply ring-2 ring-blue-500 ring-opacity-50 border-blue-500 outline-none;
+	}
+	.input.error {
+		@apply ring-2 ring-red-500 ring-opacity-50 border-red-500;
 	}
 
 	.custom-file-hidden {
@@ -84,6 +93,9 @@
 	}
 	.button.gray {
 		@apply bg-gray-100;
+	}
+	.button:disabled {
+		@apply opacity-50;
 	}
 
 	.card {
