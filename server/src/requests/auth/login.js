@@ -3,7 +3,7 @@ const { exists } = require('./validator')
 
 const rules = [
 	body('email').exists().isEmail().custom(exists),
-	body('password').exists()
+	body('password').exists().isString().isLength({ min: 5 })
 ]
 
 const handle = (req, res, next) => {
