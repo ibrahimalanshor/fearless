@@ -14,11 +14,18 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
+    "husky": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.4",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "pretty-quick": "^3.1.0"
   },
   "devDependencies": {
     "prettier": "2.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
