@@ -1,9 +1,16 @@
 const { User } = require('../models')
+const { AuthService } = require('../services')
 
 class AuthController {
 
-	login(req, res) {
-		return res.status(200).json('Login')
+	async login(req, res) {
+		try {
+			const token = await AuthService.login(req.body)
+
+			return res.status(200).json(token)
+		} catch (err) {
+			return res.status(400).json(err)
+		}
 	}
 
 	async register(req, res) {
