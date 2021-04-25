@@ -13,7 +13,7 @@
 					<p>Are you sure to logout ?</p>
 				</div>
 				<div class="card-foot">
-					<button @click="processLogout" class="button mr-2">Logout</button>
+					<button @click="processLogout" class="button red mr-2">Logout</button>
 					<button class="button gray" @click="close">Cancel</button>
 				</div>
 			</div>
