@@ -152,14 +152,6 @@
 		@apply mr-1;
 	}
 
-	.fade-enter-active, .fade-leave-active {
-		transition: opacity 0.25s;
-	}
-
-	.fade-enter, .fade-leave-to {
-		opacity: 0;
-	}
-
 	@screen sm {
 		.home-content {
 			@apply w-2/4 !important;
