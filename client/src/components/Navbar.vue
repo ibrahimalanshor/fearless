@@ -17,22 +17,55 @@
 					<input type="text" class="navbar-search" placeholder="Search Question">
 				</form>
 				<div class="navbar-divider"></div>
-				<div v-if="login">
-					user
-				</div>
+
+				<dropdown v-if="login">
+					<template v-slot:toggle>
+						<img :src="user.photo" class="navbar-user-photo">
+					</template>
+					<ul class="dropdown md right">
+						<li class="dropdown-item"><a href="" class="dropdown-link">
+							<span class="font-semibold block">{{ user.name }}</span>
+							<small class="text-gray-500">@{{ user.username }}</small>
+						</a></li>
+						<li class="dropdown-item"><a href="" class="dropdown-link">Dashboard</a></li>
+						<li class="dropdown-item"><a href="" class="dropdown-link">Profile</a></li>
+						<li class="dropdown-item"><button class="dropdown-link text-red-500" @click="logout = true">Logout</button></li>
+					</ul>
+				</dropdown>
+
 				<router-link class="button black" :to="{ name: 'Login' }" v-else>Login</router-link>
 			</div>
 		</div>
+
+		<transition name="fade">
+			<div v-if="logout">
+				<logout-modal v-model="logout" />
+			</div>
+		</transition>
+
 	</nav>
 </template>
 
 <script>
-	import { mapState } from 'vuex'
+	import { mapState, mapGetters } from 'vuex'
+  import Dropdown from './Dropdown'
+  import { LogoutModal } from './auth'
 
 	export default {
+		components: {
+			Dropdown, LogoutModal
+		},
+		data() {
+			return {
+				logout: false
+			}
+		},
 		computed: {
 			...mapState('auth', [
 				'login'
+			]),
+			...mapGetters('auth', [
+				'user'
 			])
 		}
 	}
@@ -74,6 +107,9 @@
 	}
 	.navbar-divider {
 		@apply border-r border-gray-100 py-2 mx-4 hidden;
+	}
+	.navbar-user-photo {
+		@apply w-10 h-full object-cover rounded-full;
 	}
 
 	@screen sm {
