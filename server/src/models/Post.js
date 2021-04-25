@@ -11,14 +11,18 @@ const PostSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'user'
 	}
-})
+}, { timestamps: true })
 
 function mapImage(images) {
 	return images.map(image => asset(image, 'post_img'))
 }
 
-PostSchema.set('toObject', { getters: true })
-PostSchema.set('toJSON', { getters: true })
+PostSchema.virtual('date').get(function () {
+	return 'two day ago'
+})
+
+PostSchema.set('toObject', { getters: true, virtuals: true })
+PostSchema.set('toJSON', { getters: true, virtuals: true })
 
 const Post = model('post', PostSchema)
 
