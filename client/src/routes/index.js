@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 import { Home } from '@/pages'
 import { Login, Register } from '@/pages/auth'
-import { auth, guest } from './guards'
+import { auth, guest, checkauth } from './guards'
 
 Vue.use(VueRouter)
 
@@ -32,6 +32,7 @@ const router = new VueRouter({
 	routes
 })
 
+router.beforeEach(checkauth)
 router.beforeEach(auth)
 router.beforeEach(guest)
 
