@@ -1,3 +1,4 @@
 module.exports = {
-	AuthRequest: require('./auth')
+	AuthRequest: require('./auth'),
+	PostRequest: require('./post')
 }
