@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState, mapMutations, mapActions } from 'vuex'
   import { Navbar, Alert } from '@/components'
 
   export default {
@@ -20,10 +20,17 @@
       ...mapState(['flash'])
     },
     methods: {
-      ...mapMutations(['resetFlash'])
+      ...mapMutations(['resetFlash']),
+      ...mapActions('post', ['read'])
     },
-    mounted() {
-      this.$Progress.finish()
+    async mounted() {
+      try {
+        await this.read()
+        
+        this.$Progress.finish()
+      } catch (err) {
+        console.log('obj');
+      }
     },
     created() {
       this.$Progress.start()

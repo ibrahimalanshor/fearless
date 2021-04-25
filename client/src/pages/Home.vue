@@ -23,44 +23,8 @@
 					</ul>
 				</div>
 
-				<div class="card post">
-					<div class="card-body">
-						<div class="user">
-							<img src="@/assets/user.jpg" class="user-img">
-							<div>
-								<h2 class="user-name">Ahmad Tobari</h2>
-								<time>22 day ago</time>
-							</div>
-						</div>
-						<div class="content">
-							<p>I am learning laravel now, but i having error like this, i tryna using post method, but it always show csrf error?</p>
-							<p>Any solution please?</p>
-						</div>
-						<div class="social">
-							<button><i class="far fa-heart social-icon"></i> 22</button>
-							<button><i class="far fa-comment social-icon"></i> 24</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="card post">
-					<div class="card-body">
-						<div class="user">
-							<img src="@/assets/user.jpg" class="user-img">
-							<div>
-								<h2 class="user-name">Ahmad Tobari</h2>
-								<time>22 day ago</time>
-							</div>
-						</div>
-						<div class="content">
-							<p>I dont know what is happened, i just install livewire but its show error like below</p>
-							<img src="@/assets/error.png" alt="">
-						</div>
-						<div class="social">
-							<button><i class="far fa-heart social-icon"></i> 22</button>
-							<button><i class="far fa-comment social-icon"></i> 24</button>
-						</div>
-					</div>
+				<div v-if="posts.length">
+					<home-post v-for="(post, key) in posts" :key="key" :post="post" />
 				</div>
 
 			</main>
@@ -79,11 +43,11 @@
 
 <script>
 	import { mapState } from 'vuex'
-	import { HomeSidebar, HomeWidget, HomeCreatePost } from '@/components/home'
+	import { HomeSidebar, HomeWidget, HomeCreatePost, HomePost } from '@/components/home'
 
 	export default {
 		components: {
-			HomeSidebar, HomeWidget, HomeCreatePost
+			HomeSidebar, HomeWidget, HomeCreatePost, HomePost
 		},
 		data() {
 			return {
@@ -93,6 +57,9 @@
 		computed: {
 			...mapState('auth', [
 				'login'
+			]),
+			...mapState('post', [
+				'posts'
 			])
 		},
 		methods: {
