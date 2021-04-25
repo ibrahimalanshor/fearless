@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const mongoose = require('mongoose')
 const routes = require('./routes')
 
@@ -16,6 +17,8 @@ class App {
 	initConfig() {
 		this.app.use(express.urlencoded({ extended: true }))
 		this.app.use(express.json())
+
+		this.app.use('/public', express.static(path.join(__dirname + '/../public')))
 	}
 
 	initDB() {
