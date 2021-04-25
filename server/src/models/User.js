@@ -9,9 +9,14 @@ const UserSchema = new Schema({
 	password: String,
 	photo: {
 		type: String,
-		default: 'user.jpg'
+		default: 'user.jpg',
+		get: photoSrc
 	}
-})
+}, { id: false })
+
+function photoSrc (photo) {
+	return asset(photo, 'user_img')
+}
 
 UserSchema.pre('validate', async function () {
 	await this.encrypt()
@@ -23,12 +28,8 @@ UserSchema.methods.encrypt = async function () {
 	this.password = hash
 }
 
-UserSchema.virtual('photo_src').get(function () {
-	return asset(this.photo, 'user_img')
-})
-
-UserSchema.set('toObject', { virtuals: true })
-UserSchema.set('toJSON', { virtuals: true })
+UserSchema.set('toObject', { getters: true })
+UserSchema.set('toJSON', { getters: true })
 
 const User = model('user', UserSchema)
 
