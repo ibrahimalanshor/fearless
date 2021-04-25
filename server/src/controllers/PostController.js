@@ -1,10 +1,11 @@
 const { Post } = require('../models')
+const { PostRepository } = require('../repositories')
 
 class PostController {
 
 	async read(req, res) {
 		try {
-			const posts = await Post.find({})
+			const posts = await PostRepository.getWithUser()
 			
 			return res.status(200).json(posts)
 		} catch (err) {
