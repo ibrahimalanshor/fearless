@@ -2,7 +2,7 @@ const { Post } = require('../models')
 
 class PostController {
 
-	async get(req, res) {
+	async read(req, res) {
 		try {
 			const posts = await Post.find({})
 			
