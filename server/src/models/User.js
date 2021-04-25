@@ -1,11 +1,16 @@
-const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
+const { Schema, model } = require('mongoose')
+const { asset } = require('../helpers')
 
 const UserSchema = new Schema({
 	name: String,
 	username: String,
 	email: String,
-	password: String
+	password: String,
+	photo: {
+		type: String,
+		default: 'user.jpg'
+	}
 })
 
 UserSchema.pre('validate', async function () {
@@ -17,6 +22,13 @@ UserSchema.methods.encrypt = async function () {
 
 	this.password = hash
 }
+
+UserSchema.virtual('photo_src').get(function () {
+	return asset(this.photo, 'user_img')
+})
+
+UserSchema.set('toObject', { virtuals: true })
+UserSchema.set('toJSON', { virtuals: true })
 
 const User = model('user', UserSchema)
 
