@@ -26,6 +26,14 @@ PostSchema.virtual('date').get(function () {
 	return dayjs(this.createdAt).fromNow()
 })
 
+PostSchema.query.latest = function () {
+	return this.sort({ createdAt: -1 })
+}
+
+PostSchema.query.withUser = function (field) {
+	return this.populate('user', field)
+}
+
 PostSchema.set('toObject', { getters: true, virtuals: true })
 PostSchema.set('toJSON', { getters: true, virtuals: true })
 
