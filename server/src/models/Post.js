@@ -1,4 +1,7 @@
 const { Schema, model } = require('mongoose')
+const dayjs = require('dayjs')
+const relativeTime = require('dayjs/plugin/relativeTime')
+
 const { asset } = require('../helpers')
 
 const PostSchema = new Schema({
@@ -11,14 +14,16 @@ const PostSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'user'
 	}
-}, { timestamps: true })
+}, { timestamps: true, id: false })
 
 function mapImage(images) {
 	return images.map(image => asset(image, 'post_img'))
 }
 
 PostSchema.virtual('date').get(function () {
-	return 'two day ago'
+	dayjs.extend(relativeTime)
+
+	return dayjs(this.createdAt).fromNow()
 })
 
 PostSchema.set('toObject', { getters: true, virtuals: true })
