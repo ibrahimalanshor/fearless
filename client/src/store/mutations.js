@@ -15,5 +15,8 @@ export default {
 				state.flash.count++
 			}
 		}
+	},
+	addToken: (state, token) => {
+		state.api.defaults.headers.common['authorization'] = token
 	}
 }

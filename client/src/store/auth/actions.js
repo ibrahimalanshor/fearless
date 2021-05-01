@@ -1,12 +1,13 @@
-import axios from 'axios'
-
 export default {
-	async login({ commit }, body) {
-		const user = await axios.post('/auth/login', body)
+	async login({ commit, rootState: { api } }, body) {
+		const user = await api.post('/auth/login', body)
 
-		commit('login', user.data)
+		const token = user.data
+
+		commit('login', token)
+		commit('addToken', token, { root: true })
 	},
-	async register(commit, body) {
-		await axios.post('/auth/register', body)
+	async register({ rootState: { api } }, body) {
+		await api.post('/auth/register', body)
 	}
 }
