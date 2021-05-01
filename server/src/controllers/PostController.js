@@ -28,6 +28,16 @@ class PostController {
 		}
 	}
 
+	async delete(req, res) {
+		try {
+			const post = await Post.findByIdAndDelete(req.params.id)
+
+			return res.status(200).json(post)
+		} catch (err){
+			return res.status(400).json(err)
+		}
+	}
+
 }
 
 module.exports = new PostController
