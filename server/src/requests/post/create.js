@@ -5,7 +5,7 @@ const multer = require('./upload')
 
 const rules = [
 	body('content').exists().isString().isLength({ min: 30 }),
-	body('image').custom(image),
+	body('image'),
 	body('user').exists().custom(existsUser)
 ]
 
